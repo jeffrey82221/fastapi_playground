@@ -19,10 +19,12 @@ app = FastAPI()
     }
 )
 @app.get("/")
-def execute(python_func: str, func_name: str):
+def execute(python_func: str, func_name: str, input_str: str):
     exec(python_func)
     print('start executing:', func_name)
-    result = eval(f'{func_name}()')
+    eval_str = f'{func_name}({input_str})'
+    print('eval_str:', eval_str)
+    result = eval(eval_str)
     print('end executing:', func_name)
     return {"result": result}
 
