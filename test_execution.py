@@ -23,7 +23,8 @@ def bind(func, is_class_method=False):
                 'input_str': input_str
             }
         )
-        assert x.status_code == 200
+        assert x.status_code == 200, f'status code is {x.status_code}'
+        assert x.json()['message'] == 'success', x.json()['message']
     return wrapper
 
 
@@ -37,8 +38,10 @@ class Demo:
     def __init__(self):
         self.run = bind(self.run, is_class_method=True)
     def run(self):
+        import time
         print('Inside a class method')
         print("Hello World")
+        time.sleep(0.5)
 
 
 
