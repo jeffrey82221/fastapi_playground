@@ -1,21 +1,29 @@
 """
 Testing executor_api
 """
+from functools import wraps
+import requests
+import inspect
+
+def bind(func):
+    @wraps(func) 
+    def wrapper():
+        x = requests.get(
+            'http://127.0.0.1:8080',
+            params={
+                'python_func': inspect.getsource(func),
+                'func_name': func.__name__
+            }
+        )
+        assert x.status_code == 200
+    return wrapper
+
 
 def demo_func():
     print('Inside the function:')
     print('Hello World')
-    return 'result_of_demo_func'
 
+execute_func = bind(demo_func)
 
-import requests
-import inspect
-x = requests.get(
-    'http://127.0.0.1:8080',
-    params={
-        'python_func': inspect.getsource(demo_func),
-        'func_name': demo_func.__name__
-    }
-)
-print(x.status_code)
-print(x.json())
+if __name__ == '__main__':
+    execute_func()
