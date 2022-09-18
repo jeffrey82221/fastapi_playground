@@ -8,7 +8,6 @@ python test_execution.py
 """
 from ray import serve
 from fastapi import FastAPI
-import time
 
 app = FastAPI()
 
@@ -22,10 +21,9 @@ app = FastAPI()
 @app.get("/")
 def execute(python_func: str, func_name: str):
     exec(python_func)
-    print('start executing:', func_name)   
+    print('start executing:', func_name)
     result = eval(f'{func_name}()')
-    print(result)
-    print('end execution')
+    print('end executing:', func_name)
     return {"result": result}
 
 
