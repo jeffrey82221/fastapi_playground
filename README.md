@@ -26,3 +26,11 @@ python test_execution.py
 e.g., Colab api url: <http://c26c-35-245-61-122.ngrok.io>
 
 3) On local terminal, execute `test_colab_execution.py`
+
+# Run the API server on docker and port it to the internet
+
+1) Build a image that has this api service 
+
+2) Run the image as container and start the API inside
+
+3) Build an router api that connect the in-container API to the outside world 
