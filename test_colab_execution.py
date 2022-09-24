@@ -16,7 +16,7 @@ def bind(func, is_class_method=False):
             python_func = inspect.getsource(func)
             input_str = ''
         x = requests.get(
-            'http://5946-35-245-61-122.ngrok.io',
+            'http://c26c-35-245-61-122.ngrok.io',
             params={
                 'python_func': python_func,
                 'func_name': func.__name__,
