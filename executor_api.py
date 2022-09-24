@@ -38,3 +38,4 @@ def execute(python_func: str, func_name: str, input_str: str):
 serve.run(
     execute.bind()
 )
+
