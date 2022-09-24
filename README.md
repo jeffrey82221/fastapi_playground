@@ -22,19 +22,12 @@ uvicorn executor_api:app --reload --host=127.0.0.1 --port=9999
 
 python test_execution.py
 
-# Run the API server on colab 
+# Run the API server on colab and test it locally 
 
-1) Open vscode on colab via https://colab.research.google.com/drive/1l5cbjum5I-qOxv_YFFVw2zfJQAyH9e2D (with Goole Drive mounted)
+1) Run the colab notebook: ColabFastAPI.ipynb
 
-2) git clone and cd to this repo in Google Drive 
-git clone https://github.com/jeffrey82221/fastapi_playground.git
-cd fastapi_playground
+2) Replace the api url in `test_colab_execution.py` with that shown in the last cell of colab:
 
-3) Install python packages
+e.g., Colab api url: <http://c26c-35-245-61-122.ngrok.io>
 
-python -m pip install -r requirements.txt
-
-3) start fast api:
-```bash
-uvicorn executor_api:app --reload --host=127.0.0.1 --port=9999
-```
+3) On local terminal, execute `test_colab_execution.py`
