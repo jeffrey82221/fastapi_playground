@@ -16,3 +16,9 @@ uvicorn main:app --reload
 3) Goto the APIHub Page: localhost:8000/docs
 
 4) Try executing the Put / Get Operation 
+
+
+# Run the API server on colab 
+
+ref: vscode colab: https://colab.research.google.com/drive/1l5cbjum5I-qOxv_YFFVw2zfJQAyH9e2D
+
