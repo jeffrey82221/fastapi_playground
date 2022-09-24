@@ -1,18 +1,19 @@
 """
-1) How to setup executor_api? 
+1) How to setup executor_api?
 ray start
 pip install -r requirements.txt
 uvicorn executor_api:app --host=127.0.0.1 --port=9999
 
-2) How to test it? 
+2) How to test it?
 python test_execution.py
 """
 from ray import serve
 from fastapi import FastAPI
-import traceback 
+import traceback
 import ray
 ray.init(address='auto')
 app = FastAPI()
+
 
 @serve.deployment(
     autoscaling_config={
@@ -28,14 +29,14 @@ def execute(python_func: str, func_name: str, input_str: str):
         print('start executing:', func_name)
         eval_str = f'{func_name}({input_str})'
         print('eval_str:', eval_str)
-        assert eval(eval_str) is None, 'executing python function should return None'
+        assert eval(
+            eval_str) is None, 'executing python function should return None'
         print('end executing:', func_name)
         return {"message": "success"}
-    except:
+    except BaseException:
         return {"message": traceback.format_exc()}
 
 
 serve.run(
     execute.bind()
 )
-

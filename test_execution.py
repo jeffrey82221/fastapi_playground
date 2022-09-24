@@ -6,8 +6,9 @@ import requests
 import inspect
 from textwrap import dedent
 
+
 def bind(func, is_class_method=False):
-    @wraps(func) 
+    @wraps(func)
     def wrapper():
         if is_class_method:
             python_func = dedent(inspect.getsource(func))
@@ -34,18 +35,19 @@ def demo_func():
     print('Inside the function:')
     print('Hello World')
 
+
 execute_func = bind(demo_func)
+
 
 class Demo:
     def __init__(self):
         self.run = bind(self.run, is_class_method=True)
+
     def run(self):
         import time
         print('Inside a class method')
         print("Hello World")
         time.sleep(0.5)
-
-
 
 
 if __name__ == '__main__':
