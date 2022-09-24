@@ -5,7 +5,7 @@ Place for studying and experimenting with FastAPI
 
 pip install -r requirements.txt
 
-# Test the API
+# Locally test the API
 
 1) Run the API on terminal 
 
