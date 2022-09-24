@@ -16,7 +16,7 @@ def bind(func, is_class_method=False):
             python_func = inspect.getsource(func)
             input_str = ''
         x = requests.get(
-            'http://127.0.0.1:8080',
+            'http://127.0.0.1:9999',
             params={
                 'python_func': python_func,
                 'func_name': func.__name__,
@@ -25,6 +25,8 @@ def bind(func, is_class_method=False):
         )
         assert x.status_code == 200, f'status code is {x.status_code}'
         assert x.json()['message'] == 'success', x.json()['message']
+
+        print('success with response:', x.json(), 'for', func)
     return wrapper
 
 

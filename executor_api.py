@@ -1,14 +1,17 @@
 """
-How to setup executor_api? 
+1) How to setup executor_api? 
+ray start
 pip install -r requirements.txt
-uvicorn executor_api:app --port 8080
+uvicorn executor_api:app --host=127.0.0.1 --port=9999
 
-How to test it? 
+2) How to test it? 
 python test_execution.py
 """
 from ray import serve
 from fastapi import FastAPI
 import traceback 
+import ray
+ray.init(address='auto')
 app = FastAPI()
 
 @serve.deployment(

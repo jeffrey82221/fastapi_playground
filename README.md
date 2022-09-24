@@ -10,11 +10,11 @@ pip install -r requirements.txt
 
 1) Run the API on terminal 
 
-uvicorn executor_api:app --reload
+uvicorn executor_api:app --reload --host=127.0.0.1 --port=9999
 
-2) Open the browser via localhost:8000
+2) Open the browser via localhost:9999
 
-3) Goto the APIHub Page: localhost:8000/docs
+3) Goto the APIHub Page: localhost:9999/docs
 
 4) Try executing the Put / Get Operation 
 
