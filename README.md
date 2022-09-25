@@ -49,3 +49,28 @@ sleep 20
 uvicorn executor_api:app --host 172.17.0.2 --port 9999
 ```
 3) Build an router api that connect the in-container API to the outside world 
+
+
+# Run on stand alone MAC account 
+
+## Create a minimum privilege user account 
+
+## Install python envirnoment for ray 
+
+follow REF: https://docs.ray.io/en/master/ray-overview/installation.html#m1-mac-apple-silicon-support
+
+## Install packages: 
+
+```bash
+pip install -r requirements.txt
+```
+
+## Run ray 
+
+ray start --head
+
+## Run API 
+
+```bash
+python3 porting.py
+```
