@@ -56,8 +56,9 @@ def bind(func, is_class_method=False):
             }
         )
         assert x.status_code == 200, f'status code is {x.status_code}'
-        assert x.json()['message'] == 'success', x.json()['message']
+        assert x.json()['success']
         print('Success with response:', x.json(), 'on', func)
+        return x.json()['result']
     return wrapper
 
 
@@ -81,9 +82,11 @@ class Demo:
         print('Inside a class method')
         print("Hello World")
         time.sleep(0.5)
+        return 'test'
 
 
 if __name__ == '__main__':
     execute_func()
     demo = Demo()
-    demo.run()
+    ans = demo.run()
+    print('ans:', ans)
