@@ -3,11 +3,11 @@ Testing executor_api
 
 TODO:
 - [ ] Build api that takes input and output pickle paths, and a function and do the following:
-    - [ ] extract elements from pickles on input paths
-    - [ ] send the elements to the function
-    - [ ] get the output from function
-    - [ ] save the output as pickle to the path!
-    - [ ] The API takes new input:
+    - [X] extract elements from pickles on input paths
+    - [X] send the elements to the function
+    - [X] get the output from function
+    - [X] save the output as pickle to the path!
+    - [X] The API takes new input:
         - {
             'python_func': python_func,
             'args_paths': input_paths,
