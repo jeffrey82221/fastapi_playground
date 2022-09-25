@@ -33,6 +33,7 @@ import inspect
 from textwrap import dedent
 import configparser
 from typing import List, Dict
+import json
 config = configparser.ConfigParser()
 config.read('config.ini')
 URL = config.get('remote', 'url')
@@ -40,9 +41,7 @@ URL = config.get('remote', 'url')
 
 def call_etl_api(class_func: bool, orig_func: str, arg_names: List[str], kwarg_names: Dict[str, str], output_names: List[str]):
     python_func = dedent(inspect.getsource(orig_func))
-    response = requests.get(
-        'http://127.0.0.1:9999',
-        params={
+    data = {
             'class_func': class_func,
             'python_func': python_func,
             'func_name': orig_func.__name__,
@@ -50,6 +49,9 @@ def call_etl_api(class_func: bool, orig_func: str, arg_names: List[str], kwarg_n
             'kwarg_names': kwarg_names,
             'output_names': output_names
         }
+    response = requests.post(
+        URL,
+        json=data
     )
 
     assert response.status_code == 200, f'status code is {response.status_code}'

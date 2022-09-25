@@ -11,10 +11,12 @@ from ray import serve
 from fastapi import FastAPI
 import traceback
 import ray
+from pydantic import BaseModel
 from typing import List, Dict
 import pickle
 import logging
-ray.init(address='auto')
+import json
+ray.init(address='auto', ignore_reinit_error=True)
 app = FastAPI()
 
 
@@ -28,6 +30,13 @@ def save(result, output_name):
     with open(f'/tmp/{output_name}.pickle', 'wb') as f:
         pickle.dump(result, f)
 
+class Item(BaseModel):
+    class_func: bool
+    python_func: str
+    func_name: str
+    arg_names: List[str]
+    kwarg_names: Dict[str, str]
+    output_names: List[str]
 
 @serve.deployment(
     autoscaling_config={
@@ -36,8 +45,16 @@ def save(result, output_name):
         "target_num_ongoing_requests_per_replica": 1,
     }
 )
-@app.get("/")
-def execute(class_func: bool, python_func: str, func_name: str, arg_names: List[str], kwarg_names: Dict[str, str], output_names: List[str]):
+@app.post("/")
+def execute(item: Item):
+    input_data = json.loads(item.json())
+    print('input:', input_data)
+    class_func = input_data['class_func']
+    python_func = input_data['python_func']
+    func_name = input_data['func_name']
+    arg_names = input_data['arg_names']
+    kwarg_names = input_data['kwarg_names']
+    output_names = input_data['output_names']
     try:
         exec(python_func)
         logging.info(python_func)
@@ -77,7 +94,6 @@ if __name__ == '__main__':
     import nest_asyncio
     from pyngrok import ngrok
     import uvicorn
-    from executor_api import app
     ngrok.set_auth_token("296zATB6WYNOnhCSqlQJYyxwTor_69pPVvPvKTrskkTva7ok")
     ngrok_tunnel = ngrok.connect(9999)
     print('Public URL:', ngrok_tunnel.public_url)
