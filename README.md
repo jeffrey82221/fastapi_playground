@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 1) Run the API on terminal 
 ```bash
-uvicorn executor_api:app --reload --host=127.0.0.1 --port=9999
+uvicorn etl_api:app --reload --host=127.0.0.1 --port=9999
 ```
 2) Goto the APIHub Page: localhost:9999/docs
 
