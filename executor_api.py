@@ -26,15 +26,14 @@ app = FastAPI()
 def execute(python_func: str, func_name: str, input_str: str):
     try:
         exec(python_func)
-        print('start executing:', func_name)
+        print('start:', func_name)
         eval_str = f'{func_name}({input_str})'
         print('eval_str:', eval_str)
-        assert eval(
-            eval_str) is None, 'executing python function should return None'
-        print('end executing:', func_name)
-        return {"message": "success"}
+        result = eval(eval_str)
+        print('end:', func_name)
+        return {"success": True, "result": result}
     except BaseException:
-        return {"message": traceback.format_exc()}
+        return {"success": False, "msg": traceback.format_exc()}
 
 
 serve.run(
