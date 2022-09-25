@@ -72,5 +72,5 @@ ray start --head
 ## Run API 
 
 ```bash
-python3 porting.py
+python porting.py
 ```
