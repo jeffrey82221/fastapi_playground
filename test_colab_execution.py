@@ -5,6 +5,11 @@ from functools import wraps
 import requests
 import inspect
 from textwrap import dedent
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+URL = config.get('remote', 'url')
 
 
 def bind(func, is_class_method=False):
@@ -17,7 +22,7 @@ def bind(func, is_class_method=False):
             python_func = inspect.getsource(func)
             input_str = ''
         x = requests.get(
-            'http://c26c-35-245-61-122.ngrok.io',
+            URL,
             params={
                 'python_func': python_func,
                 'func_name': func.__name__,
@@ -33,9 +38,9 @@ def bind(func, is_class_method=False):
 def demo_func():
     print('Inside the function:')
     print('Hello World')
-    print('create parquet')
     import pandas as pd
     pd.DataFrame([1, 2, 3], columns=['number']).to_parquet('tmp.parquet')
+    print('create parquet')
 
 
 execute_func = bind(demo_func)
