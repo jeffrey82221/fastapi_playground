@@ -12,7 +12,7 @@ from fastapi import FastAPI
 import traceback
 import ray
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import *
 import pickle
 import logging
 import json
